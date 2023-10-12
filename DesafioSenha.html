@@ -1,84 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<style>
-    body {
-        background-color: #f2f2f2;
-        /* Cor de fundo neutra */
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador de Senha</title>
 
-    h2 {
-        color: #333;
-        /* Cor de título neutra */
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Comfortaa:wght@300&family=Montserrat:wght@100&family=Pixelify+Sans&family=Rajdhani:wght@300&display=swap" rel="stylesheet">
 
-    input[type="password"] {
-        width: 80%;
-        padding: 10px;
-        font-size: 16px;
-    }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
+   
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
+   <style>
+        body {
+            background-color: #222123;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+        }
 
-    input[type="range"] {
-        width: 80%;
-        padding: 0;
-        background: linear-gradient(to right, #007bff 0%, #007bff 33.33%, #ffc107 33.33%, #ffc107 66.66%, #dc3545 66.66%, #dc3545 100%);
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
+      section {
+        background-color: #343334;
+        border-top-right-radius: 10%;
+        border-top-left-radius: 10%;
+        height: 300px;
+        width: 700px;
+        margin-left: 450px;
+        margin-top: 150px;
+      }
 
-    input[type="range"]::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 20px;
-        height: 20px;
-        background: #333;
-        border: 1px solid #ccc;
-        border-radius: 50%;
-        cursor: pointer;
-    }
+      h2 {
+        color: #646265;
+        font-family: 'Pixelify Sans', sans-serif;
+        font-size: 50px;
+      }
 
-    button {
-        background-color: #007bff;
-        /* Cor de botão chamativa */
-        color: #fff;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
+      input {
+        background-color: #222123;
+        width: 250px;
+        font-family: 'Tilt Neon', sans-serif;
+        font-weight: 300;
+        color: white;
+      }
 
-    label {
-        font-weight: bold;
-        margin-top: 10px;
-    }
+      input [type="range"] {
+        width: 200px;
+      }
 
-    output {
-        color: #dc3545;
-        /* Cor de status chamativa */
-        font-weight: bold;
-    }
-</style>
+      button {
+        background-color: #222123;
+        font-family: 'Raleway', sans-serif;
+        color: white;
+      }
+    </style>
 </head>
 
 <body>
-    <h2>Verificador de Senha</h2>
-    <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-    <button id="idShow">Mostrar</button>
-    <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled>
-    <br>
-    <label for="idStatus">Status</label>
-    <output id="idStatus"></output>
+    <section>
+        <h2>Verificador de Senha</h2>
+        <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+        <button id="idShow">Mostrar</button>
+        <br>
+        <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled>
+        <br>
+        <label for="idStatus">Status</label>
+        <output id="idStatus"></output>
+    </section>
 
     <script>
-        var senha = document.getElementById("idSenha")
+            var senha = document.getElementById("idSenha")
         var range = document.getElementById("idRange")
         var status = document.getElementById("idStatus")
 
@@ -131,8 +129,11 @@
             return forca
         }
 
-
     </script>
 </body>
 
+</html>
+
+    
+</body>
 </html>
