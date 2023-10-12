@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body {
+        background-color: #f2f2f2;
+        /* Cor de fundo neutra */
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #333;
+        /* Cor de título neutra */
+    }
+
+    input[type="password"] {
+        width: 80%;
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    input[type="range"] {
+        width: 80%;
+        padding: 0;
+        background: linear-gradient(to right, #007bff 0%, #007bff 33.33%, #ffc107 33.33%, #ffc107 66.66%, #dc3545 66.66%, #dc3545 100%);
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: #333;
+        border: 1px solid #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    button {
+        background-color: #007bff;
+        /* Cor de botão chamativa */
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    label {
+        font-weight: bold;
+        margin-top: 10px;
+    }
+
+    output {
+        color: #dc3545;
+        /* Cor de status chamativa */
+        font-weight: bold;
+    }
+</style>
+</head>
+
+<body>
+    <h2>Verificador de Senha</h2>
+    <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
+    <button id="idShow">Mostrar</button>
+    <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled>
+    <br>
+    <label for="idStatus">Status</label>
+    <output id="idStatus"></output>
+
+    <script>
+        var senha = document.getElementById("idSenha")
+        var range = document.getElementById("idRange")
+        var status = document.getElementById("idStatus")
+
+        var showHide = document.getElementById("idShow")
+        showHide.addEventListener("click", function () {
+            if (senha.type === "password") {
+                senha.type = "text"; // Mude o tipo para "text" para mostrar a senha.
+                document.getElementById("idShow").innerText = "Esconder"
+            } else {
+                senha.type = "password"; // Mude o tipo de volta para "password" para ocultar a senha.
+                document.getElementById("idShow").innerText = "Mostrar"
+            }
+        })
+
+
+        senha.addEventListener("input", function () { //keyum ao invés de input?
+            var senhaValue = senha.value
+            var forca = calcularForca(senhaValue)
+            range.value = forca
+
+            if (forca >= 9) {
+                status.innerText = "Forte"
+            } else if (forca > 5) {
+                status.innerText = "Moderada"
+            } else if (forca >= 1) {
+                status.innerText = "Fraca"
+            }
+        })
+
+        function calcularForca(senhaValue) {
+            let forca = 0
+
+            if (senhaValue.length >= 14) {
+                forca += 5
+            } else if (senhaValue.length >= 12) {
+                forca += 4
+            } else if (senhaValue.length >= 10) {
+                forca += 3
+            } else if (senhaValue.length > 6) {
+                forca += 2
+            } else {
+                forca += 1
+            }
+
+            if (/[0-9]/.test(senhaValue)) forca += 1
+            if (/[A-Z]/.test(senhaValue)) forca += 1
+            if (/[a-z]/.test(senhaValue)) forca += 1
+            if (/[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/.test(senhaValue)) forca += 2;
+
+            return forca
+        }
+
+
+    </script>
+</body>
+
+</html>
