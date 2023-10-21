@@ -1,139 +1,164 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Verificador de Senha</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@300&family=Comfortaa:wght@300&family=Montserrat:wght@100&family=Pixelify+Sans&family=Rajdhani:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap" rel="stylesheet">
-   
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
-   <style>
         body {
             background-color: #222123;
             font-family: Arial, sans-serif;
-            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             padding: 20px;
+            min-height: 100vh;
         }
 
-      section {
-        background-color: #343334;
-        border-top-right-radius: 10%;
-        border-top-left-radius: 10%;
-        height: 300px;
-        width: 700px;
-        margin-left: 450px;
-        margin-top: 150px;
-      }
+        section {
+            background-color: #343334;
+            width: 400px;
+            padding: 30px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
 
-      h2 {
-        color: #646265;
-        font-family: 'Pixelify Sans', sans-serif;
-        font-size: 50px;
-      }
+        h2 {
+            color: #646265;
+            font-family: 'Tilt Neon', sans-serif;
+            font-size: 30px;
+            margin-top: -15px;
+        }
 
-      input {
-        background-color: #222123;
-        width: 250px;
-        font-family: 'Tilt Neon', sans-serif;
-        font-weight: 300;
-        color: white;
-      }
+        input {
+            background-color: #222123;
+            width: 250px;
+            font-family: 'Tilt Neon', sans-serif;
+            color: white;
+            border: none;
+            outline: none;
+            height: 32px;
+            margin-top: -5px;
+        }
 
-      input [type="range"] {
-        width: 200px;
-      }
+        button {
+            background-color: #343334;
+            border: 7px solid #222123;
+            color: #646265;
+            font-family: 'Tilt Neon', sans-serif;
+            width: 50px; /* Ajuste o tamanho do botão conforme necessário */
+            height: 32px;
+            cursor: pointer;
+            margin-left: -3px;
+        }
 
-      button {
-        background-color: #222123;
-        font-family: 'Raleway', sans-serif;
-        color: white;
-      }
+        button:hover {
+            background-color: #222123; /* Mude a cor do botão quando o mouse estiver sobre ele */
+        }
+
+        output {
+            font-family: 'Tilt Neon', sans-serif;
+            color: white;
+        }
+
+        .classBarra {
+            width: 0;
+            background: red;
+            height: 3px;
+            margin-top: 20px;
+            transition: width 2s, background-color 2s;
+        }
     </style>
 </head>
-
 <body>
     <section>
         <h2>Verificador de Senha</h2>
-        <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}">
-        <button id="idShow">Mostrar</button>
         <br>
-        <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled>
+        <div>
+            <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="password">
+            <button id="idShow">Mostrar</button>
+        </div>
+        <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled style="display: none;">
         <br>
-        <label for="idStatus">Status</label>
         <output id="idStatus"></output>
+        <div class="classBarra"></div>
     </section>
 
     <script>
-            var senha = document.getElementById("idSenha")
-        var range = document.getElementById("idRange")
-        var status = document.getElementById("idStatus")
+        var barra = document.querySelector(".classBarra");
+        var senha = document.getElementById("idSenha");
+        var range = document.getElementById("idRange");
 
-        var showHide = document.getElementById("idShow")
+        var showHide = document.getElementById("idShow");
         showHide.addEventListener("click", function () {
             if (senha.type === "password") {
                 senha.type = "text"; // Mude o tipo para "text" para mostrar a senha.
-                document.getElementById("idShow").innerText = "Esconder"
+                document.getElementById("idShow").innerText = "Esconder";
             } else {
                 senha.type = "password"; // Mude o tipo de volta para "password" para ocultar a senha.
-                document.getElementById("idShow").innerText = "Mostrar"
+                document.getElementById("idShow").innerText = "Mostrar";
             }
-        })
+        });
 
-
-        senha.addEventListener("input", function () { //keyum ao invés de input?
-            var senhaValue = senha.value
-            var forca = calcularForca(senhaValue)
-            range.value = forca
+        senha.addEventListener("input", function () {
+            var senhaValue = senha.value;
+            var forca = calcularForca(senhaValue);
+            range.value = forca;
 
             if (forca >= 9) {
-                status.innerText = "Forte"
+                document.getElementById("idStatus").innerText = "Status: Forte";
+                document.getElementById("idStatus").style.color = "green"
+                barra.style.width = "100%";
+                barra.style.backgroundColor = "green";
             } else if (forca > 5) {
-                status.innerText = "Moderada"
+                document.getElementById("idStatus").innerText = "Status: Moderada";
+                document.getElementById("idStatus").style.color = "yellow"
+                barra.style.width = "66%";
+                barra.style.backgroundColor = "yellow";
             } else if (forca >= 1) {
-                status.innerText = "Fraca"
+                document.getElementById("idStatus").innerText = "Status: Fraca";
+                document.getElementById("idStatus").style.color = "red"
+                barra.style.width = "33%";
+                barra.style.backgroundColor = "red";
             }
-        })
+        });
 
         function calcularForca(senhaValue) {
-            let forca = 0
+            let forca = 0;
 
             if (senhaValue.length >= 14) {
-                forca += 5
+                forca += 5;
             } else if (senhaValue.length >= 12) {
-                forca += 4
+                forca += 4;
             } else if (senhaValue.length >= 10) {
-                forca += 3
+                forca += 3;
             } else if (senhaValue.length > 6) {
-                forca += 2
+                forca += 2;
             } else {
-                forca += 1
+                forca += 1;
             }
 
-            if (/[0-9]/.test(senhaValue)) forca += 1
-            if (/[A-Z]/.test(senhaValue)) forca += 1
-            if (/[a-z]/.test(senhaValue)) forca += 1
+            if (/[0-9]/.test(senhaValue)) forca += 1;
+            if (/[A-Z]/.test(senhaValue)) forca += 1;
+            if (/[a-z]/.test(senhaValue)) forca += 1;
             if (/[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/.test(senhaValue)) forca += 2;
 
-            return forca
+            return forca;
         }
-
     </script>
 </body>
 
-</html>
-
-    
-</body>
 </html>
