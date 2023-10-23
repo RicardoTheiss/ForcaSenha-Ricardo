@@ -8,6 +8,9 @@
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -25,12 +28,16 @@
             min-height: 100vh;
         }
 
-        section {
+        main{
+            flex-direction: column;
+        }
+
+        .campoPrincipal {
             background-color: #343334;
             width: 400px;
             padding: 30px;
             position: relative;
-            display: flex;
+            display: block;
             justify-content: center;
             align-items: center;
             flex-direction: column;
@@ -76,31 +83,111 @@
 
         .classBarra {
             width: 0;
+        }
+
+        .classBarraFraca{
+            width: 0;
             background: red;
             height: 3px;
             margin-top: 20px;
-            transition: width 2s, background-color 2s;
+            transition: width 2s;
+            filter: drop-shadow(0 0 5px red) drop-shadow(0 0 10px red) drop-shadow(0 0 15px red);
+            width: 33%;
         }
+        .classBarraModerada{
+            width: 0;
+            background: yellow;
+            height: 3px;
+            margin-top: 20px;
+            transition: width 2s;
+            filter: drop-shadow(0 0 5px yellow) drop-shadow(0 0 10px yellow) drop-shadow(0 0 15px yellow);
+            width: 66%;
+        }
+        .classBarraForte{
+            width: 0;
+            background: green;
+            height: 3px;
+            margin-top: 20px;
+            transition: width 2s; 
+            filter: drop-shadow(0 0 5px green) drop-shadow(0 0 10px green) drop-shadow(0 0 15px green);
+            width: 100%;
+        }
+        .classStatusFraca{
+            color: red;
+            filter: drop-shadow(0 0 5px red) drop-shadow(0 0 10px red) drop-shadow(0 0 15px red);
+            font-family: 'Kanit', sans-serif;
+        }
+        .classStatusModerada{
+            color: yellow;
+            filter: drop-shadow(0 0 5px yellow) drop-shadow(0 0 10px yellow) drop-shadow(0 0 15px yellow);
+            font-family: 'Kanit', sans-serif;
+        }
+        .classStatusForte{
+            color: green;
+            filter: drop-shadow(0 0 5px green) drop-shadow(0 0 10px green) drop-shadow(0 0 15px green);
+            font-family: 'Kanit', sans-serif;
+
+        }
+
+        img {
+            height: 30px;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        #idDica:hover {
+            cursor: pointer;
+        }
+
+        #idDicaCampo{
+            background-color: #343334;
+            color: #646265;
+            font-family: 'Tilt Neon', sans-serif;
+            display: none;
+            width: 400px;
+            border: 20px solid #343334;
+            flex-direction: column;
+            position: relative;
+            margin-bottom: 25px;
+        }
+
     </style>
 </head>
 <body>
-    <section>
-        <h2>Verificador de Senha</h2>
-        <br>
-        <div>
-            <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="password">
-            <button id="idShow">Mostrar</button>
-        </div>
-        <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled style="display: none;">
-        <br>
-        <output id="idStatus"></output>
-        <div class="classBarra"></div>
-    </section>
+    <main>
+        <section id="idDicaCampo">
+            <h3>Dicas para seu código ficar mais seguro:</h3>
+            <ul>
+                <li>Utilize letras maiúsculas e minúsculas;</li>
+                <li>Utilize números;</li>
+                <li>Utilize caracteres especiais;</li>
+                <li>Seja criativo!</li>
+            </ul>
+        </section>
+        
+        <section class="campoPrincipal">
+            <h2>Verificador de Senha</h2>
+            <div id="idDica">
+                <img src="assets/lampada.png" alt="Clique para ver dicas">
+            </div>
+            <br>
+            <div>
+                <input type="password" id="idSenha" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" placeholder="password">
+                <button id="idShow">Mostrar</button>
+            </div>
+            <input type="range" id="idRange" min="0" max="10" value="0" step="1" disabled style="display: none;">
+            <br>
+            <output id="idStatus"></output>
+            <div class="classBarra"></div>
+        </section>
+    </main>
 
     <script>
         var barra = document.querySelector(".classBarra");
         var senha = document.getElementById("idSenha");
         var range = document.getElementById("idRange");
+        var stats = document.getElementById("idStatus")
 
         var showHide = document.getElementById("idShow");
         showHide.addEventListener("click", function () {
@@ -119,21 +206,33 @@
             range.value = forca;
 
             if (forca >= 9) {
-                document.getElementById("idStatus").innerText = "Status: Forte";
-                document.getElementById("idStatus").style.color = "green"
-                barra.style.width = "100%";
-                barra.style.backgroundColor = "green";
+                stats.innerText = "Força: Forte"
+                stats.classList.add("classStatusForte")
+                stats.classList.remove("classStatusModerada")
+                stats.classList.remove("classStatusFraca")
+
+                barra.classList.add("classBarraForte")
+                barra.classList.remove("classBarraModerada")
+                barra.classList.remove("classBarraFraca")
             } else if (forca > 5) {
-                document.getElementById("idStatus").innerText = "Status: Moderada";
-                document.getElementById("idStatus").style.color = "yellow"
-                barra.style.width = "66%";
-                barra.style.backgroundColor = "yellow";
+                stats.innerText = "Força: Moderada"
+                stats.classList.remove("classStatusForte")
+                stats.classList.add("classStatusModerada")
+                stats.classList.remove("classStatusFraca")
+
+                barra.classList.remove("classBarraForte")
+                barra.classList.add("classBarraModerada")
+                barra.classList.remove("classBarraFraca")
             } else if (forca >= 1) {
-                document.getElementById("idStatus").innerText = "Status: Fraca";
-                document.getElementById("idStatus").style.color = "red"
-                barra.style.width = "33%";
-                barra.style.backgroundColor = "red";
-            }
+                stats.innerText = "Força: Fraca"
+                stats.classList.remove("classStatusForte")
+                stats.classList.remove("classStatusModerada")
+                stats.classList.add("classStatusFraca")
+
+                barra.classList.remove("classBarraForte")
+                barra.classList.remove("classBarraModerada")
+                barra.classList.add("classBarraFraca")
+            } 
         });
 
         function calcularForca(senhaValue) {
@@ -157,6 +256,20 @@
             if (/[!@#$%^&*()_+{}\[\]:;<>,.?~\\]/.test(senhaValue)) forca += 2;
 
             return forca;
+        }
+
+        var dicaCampo = document.getElementById("idDicaCampo");
+        var dica = document.getElementById("idDica");
+        var isDicaVisible = false;
+
+        dica.onclick = function () {
+            if (isDicaVisible) {
+                dicaCampo.style.display = "none";
+                isDicaVisible = false;
+            } else {
+                dicaCampo.style.display = "block";
+                isDicaVisible = true;
+            }
         }
     </script>
 </body>
